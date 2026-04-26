@@ -32,9 +32,14 @@ export async function registerAction(formData: FormData) {
 
     await login({ id: user.id, email: user.email, name: user.name });
     // Success - will redirect in the component or here
-  } catch (error) {
-    console.error('Registration error:', error);
-    return { error: 'Something went wrong' };
+  } catch (error: any) {
+    console.error('Registration error details:', {
+      message: error.message,
+      code: error.code,
+      meta: error.meta,
+      stack: error.stack
+    });
+    return { error: `Registration failed: ${error.message || 'Something went wrong'}` };
   }
 
   redirect('/dashboard');
@@ -61,9 +66,14 @@ export async function loginAction(formData: FormData) {
     }
 
     await login({ id: user.id, email: user.email, name: user.name });
-  } catch (error) {
-    console.error('Login error:', error);
-    return { error: 'Something went wrong' };
+  } catch (error: any) {
+    console.error('Login error details:', {
+      message: error.message,
+      code: error.code,
+      meta: error.meta,
+      stack: error.stack
+    });
+    return { error: `Login failed: ${error.message || 'Something went wrong'}` };
   }
 
   redirect('/dashboard');

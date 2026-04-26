@@ -4,14 +4,14 @@ import { decrypt } from '@/lib/auth';
 // 1. Specify public routes. Everything else is protected.
 const publicRoutes = ['/login', '/register'];
 
-export default async function proxy(req: NextRequest) {
+export default async function middleware(req: NextRequest) {
   const path = req.nextUrl.pathname;
   const isPublicRoute = publicRoutes.includes(path);
 
   const cookie = req.cookies.get('session')?.value;
   const session = cookie ? await decrypt(cookie).catch(() => null) : null;
 
-  console.log(`[Proxy Log] Path: ${path}, Public: ${isPublicRoute}, Session: ${!!session}`);
+  console.log(`[Middleware Log] Path: ${path}, Public: ${isPublicRoute}, Session: ${!!session}`);
 
   // 2. Always open auth first on the root path.
   if (path === '/') {
