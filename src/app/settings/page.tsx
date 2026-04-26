@@ -9,7 +9,7 @@ import { Settings, Lock, Palette, Shield, User, ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
 
 export const metadata = {
-  title: 'Settings — GameMatch',
+  title: 'Settings — Play Nearby',
   description: 'Manage your account settings, appearance, and security preferences.',
 };
 

@@ -11,7 +11,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "GameMatch — Find Local Sports Partners",
+  title: "Play Nearby — Find Local Sports Partners",
   description: "Discover matches and sports partners near you. Join games, find players, and play together.",
 };
 

@@ -7,12 +7,12 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "mongodb"
   url      = env("DATABASE_URL")
 }
 
 model User {
-  id              String   @id @default(cuid())
+  id              String   @id @default(auto()) @map("_id") @db.ObjectId
   name            String
   email           String   @unique
   password        String
@@ -36,7 +36,7 @@ model User {
 }
 
 model Sport {
-  id       String @id @default(cuid())
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
   name     String
   category String // Indoor, Outdoor, etc.
   iconUrl  String?
@@ -45,21 +45,22 @@ model Sport {
 }
 
 model UserSport {
-  userId     String
-  sportId    String
+  id         String @id @default(auto()) @map("_id") @db.ObjectId
+  userId     String @db.ObjectId
+  sportId    String @db.ObjectId
   skillLevel String // Beginner, Intermediate, etc.
   experience Int?
   
   user  User  @relation(fields: [userId], references: [id])
   sport Sport @relation(fields: [sportId], references: [id])
 
-  @@id([userId, sportId])
+  @@unique([userId, sportId])
 }
 
 model Match {
-  id            String   @id @default(cuid())
-  creatorId     String
-  sportId       String
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  creatorId     String   @db.ObjectId
+  sportId       String   @db.ObjectId
   title         String
   latitude      Float
   longitude     Float
@@ -77,20 +78,21 @@ model Match {
 }
 
 model MatchParticipant {
-  matchId String
-  userId  String
+  id      String @id @default(auto()) @map("_id") @db.ObjectId
+  matchId String @db.ObjectId
+  userId  String @db.ObjectId
   status  String @default("Accepted") // Default to Accepted for MVP Join
 
   match Match @relation(fields: [matchId], references: [id])
   user  User  @relation(fields: [userId], references: [id])
 
-  @@id([matchId, userId])
+  @@unique([matchId, userId])
 }
 
 model PlayRequest {
-  id          String   @id @default(cuid())
-  senderId    String
-  receiverId  String
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  senderId    String   @db.ObjectId
+  receiverId  String   @db.ObjectId
   status      String   @default("Pending") // Pending, Accepted, Rejected
   createdAt   DateTime @default(now())
 

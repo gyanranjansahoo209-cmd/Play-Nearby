@@ -45,11 +45,14 @@ export default function LoginPage() {
           className="w-full max-w-md relative z-10"
         >
           <div className="flex flex-col items-center mb-10">
-            <Link href="/" className="w-14 h-14 rounded-2xl bg-gradient-to-br from-brand to-blue-600 flex items-center justify-center shadow-xl shadow-brand/20 mb-6 active:scale-95 transition-transform">
-              <Activity size={32} className="text-white" />
+            <Link href="/" className="flex flex-col items-center gap-4 mb-6 group">
+              <div className="w-24 h-24 rounded-full bg-white flex items-center justify-center shadow-2xl shadow-brand/40 group-hover:scale-105 transition-transform duration-300 overflow-hidden border-4 border-white/20">
+                <img src="/logo_generated.png" alt="Play Nearby Logo" className="w-full h-full object-contain" />
+              </div>
+              <span className="text-2xl font-bold text-white tracking-tight">Play Nearby</span>
             </Link>
             <h1 className="text-3xl font-bold text-white mb-2">Welcome Back</h1>
-            <p className="text-slate-400">Sign in to continue to GameMatch</p>
+            <p className="text-slate-400">Sign in to continue</p>
           </div>
 
           <div className="bg-white/[0.03] border border-white/10 rounded-[2.5rem] p-10 backdrop-blur-xl shadow-2xl">
