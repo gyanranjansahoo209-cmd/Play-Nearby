@@ -1,0 +1,99 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/client"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id               String   @id @default(cuid())
+  name             String
+  email            String   @unique
+  password         String
+  bio              String?
+  profileImageUrl  String?
+  latitude         Float?
+  longitude        Float?
+  address          String?
+  isAvailableNow   Boolean  @default(false)
+  availability     String? // JSON string of {days: string[], times: string[]}
+  playingLocations String? // JSON string of string[]
+  privacyRadius    Int      @default(1000)
+  darkMode         Boolean  @default(true)
+  createdAt        DateTime @default(now())
+
+  createdMatches   Match[]            @relation("CreatedMatches")
+  participations   MatchParticipant[]
+  sports           UserSport[]
+  sentRequests     PlayRequest[]      @relation("SentRequests")
+  receivedRequests PlayRequest[]      @relation("ReceivedRequests")
+}
+
+model Sport {
+  id       String      @id @default(cuid())
+  name     String
+  category String // Indoor, Outdoor, etc.
+  iconUrl  String?
+  matches  Match[]
+  users    UserSport[]
+}
+
+model UserSport {
+  userId     String
+  sportId    String
+  skillLevel String // Beginner, Intermediate, etc.
+  experience Int?
+
+  user  User  @relation(fields: [userId], references: [id])
+  sport Sport @relation(fields: [sportId], references: [id])
+
+  @@id([userId, sportId])
+}
+
+model Match {
+  id            String   @id @default(cuid())
+  creatorId     String
+  sportId       String
+  title         String
+  latitude      Float
+  longitude     Float
+  address       String?
+  venueName     String?
+  venueType     String
+  scheduledTime DateTime
+  maxPlayers    Int
+  status        String   @default("Open")
+  createdAt     DateTime @default(now())
+
+  creator      User               @relation("CreatedMatches", fields: [creatorId], references: [id])
+  sport        Sport              @relation(fields: [sportId], references: [id])
+  participants MatchParticipant[]
+}
+
+model MatchParticipant {
+  matchId String
+  userId  String
+  status  String @default("Accepted") // Default to Accepted for MVP Join
+
+  match Match @relation(fields: [matchId], references: [id])
+  user  User  @relation(fields: [userId], references: [id])
+
+  @@id([matchId, userId])
+}
+
+model PlayRequest {
+  id         String   @id @default(cuid())
+  senderId   String
+  receiverId String
+  status     String   @default("Pending") // Pending, Accepted, Rejected
+  createdAt  DateTime @default(now())
+
+  sender   User @relation("SentRequests", fields: [senderId], references: [id])
+  receiver User @relation("ReceivedRequests", fields: [receiverId], references: [id])
+}
