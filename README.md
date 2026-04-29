@@ -44,12 +44,6 @@
 - 🌓 **Aesthetic Dark Mode**: A premium, eye-friendly design for all-day usage.
 
 ---
-
-## 🖼️ UI Preview
-
-![PlayNearby Dashboard Preview](./assets/preview.png)
-*Modern, clean, and intuitive dashboard designed for sports lovers.*
-
 ---
 
 ## 📥 Installation Guide
