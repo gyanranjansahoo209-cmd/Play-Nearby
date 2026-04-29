@@ -135,8 +135,8 @@ Finding a reliable sports partner is often harder than the game itself. **PlayNe
 ## 👥 Author
 
 **Gyan Ranjan Sahoo**
-- GitHub: [@gyanranjansahoo209](https://github.com/gyanranjansahoo209)
-- LinkedIn: [Your Profile](https://linkedin.com/in/your-profile)
+- GitHub: [@gyanranjansahoo209](https://github.com/gyanranjansahoo209-cmd)
+- LinkedIn: [Your Profile](https://www.linkedin.com/in/gyan-ranjan-sahoo-446577370?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app)
 
 ---
 
